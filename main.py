@@ -28,6 +28,7 @@ def main():
             dt = game_clock.tick(60) / 1000
         screen.fill("black")
         player_ship.draw(screen, "white", player_ship.triangle(), LINE_WIDTH)
+        player_ship.update(dt)
         pygame.display.flip()
 
 
