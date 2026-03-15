@@ -13,9 +13,16 @@ def main():
     game_clock = pygame.time.Clock()
     dt = 0
 
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
     player_ship = Player(x,y)
+
 
     end_loop = False
 
@@ -27,8 +34,11 @@ def main():
             game_clock.tick(60) 
             dt = game_clock.tick(60) / 1000
         screen.fill("black")
-        player_ship.draw(screen, "white", player_ship.triangle(), LINE_WIDTH)
-        player_ship.update(dt)
+        #player_ship.draw(screen, "white", player_ship.triangle(), LINE_WIDTH)
+        #player_ship.update(dt)
+        updatable.update(dt)
+        for item in drawable:
+            item.draw(screen, "white", item.triangle(), LINE_WIDTH)
         pygame.display.flip()
 
 
