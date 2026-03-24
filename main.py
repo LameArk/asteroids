@@ -1,6 +1,7 @@
 import pygame
+import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, LINE_WIDTH
-from logger import log_state
+from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -30,11 +31,11 @@ def main():
 
     as_field = AsteroidField()
 
-    end_loop = False
+    #end_loop = False
 
-    while (end_loop == False):
+    while (True):
         log_state()
-        game_clock.tick(60)
+        #game_clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -44,6 +45,11 @@ def main():
         #player_ship.draw(screen, "white", player_ship.triangle(), LINE_WIDTH)
         #player_ship.update(dt)
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collides_with(player_ship) == True:
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
